@@ -4,23 +4,31 @@ Created by Huaizheng ZHANG on 6.27.
 Copyright (c) 2015 zhzHNN. All rights reserved.
 
 """
-import string
-import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.mlab import csv2rec
+import matplotlib.pyplot as plt
+import matplotlib.cbook as cbook
+from matplotlib.ticker import Formatter
+from datetime import datetime
 
+d,close = np.loadtxt('Data/000001/000001trainData.csv', delimiter=',', skiprows=460, usecols=(0,3), unpack=True, dtype=str)
 
-Data = np.loadtxt('Data/000001/000001testData.csv', skiprows = 1, dtype=str)
+class MyFormatter(Formatter):
+    def __init__(self, dates, fmt='%Y-%m-%d'):
+        self.dates = dates
+        self.fmt = fmt
 
+    def __call__(self, x, pos=0):
+        'Return the label for time x at position pos'
+        ind = int(round(x))
+        if ind>=len(self.dates) or ind<0: return ''
 
-years = [Data['date'][x] for x in length(Data['date'])]
-print(years)
-price = [Data['close'][x] for x in linesList(Data['close'])]
-print(price)
-plt.plot(years, price, 'b*')#,label=$cos(x^2)$)
-plt.plot(years, price, 'r')
-plt.xlabel(years(+2000))
-plt.ylabel('housing average price(*2000 yuan)')
-plt.ylim(0, 15)
-plt.title('line_regression & gradient decrease')
-plt.legend()
+        return self.dates[ind].strftime(self.fmt)
+
+formatter = MyFormatter(d)
+
+fig, ax = plt.subplots()
+ax.xaxis.set_major_formatter(formatter)
+ax.plot(np.arange(len(d)), close, 'o-')
+fig.autofmt_xdate()
 plt.show()
