@@ -11,7 +11,7 @@ import matplotlib.cbook as cbook
 from matplotlib.ticker import Formatter
 from datetime import datetime
 
-d,close = np.loadtxt('Data/000001/000001trainData.csv', delimiter=',', skiprows=460, usecols=(0,3), unpack=True, dtype=str)
+d,close = np.loadtxt('Data/000001/000001trainData.csv', delimiter=',', skiprows=1, usecols=(0,3), unpack=True, dtype=str)
 
 class MyFormatter(Formatter):
     def __init__(self, dates, fmt='%Y-%m-%d'):
