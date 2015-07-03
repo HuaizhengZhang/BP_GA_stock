@@ -29,32 +29,4 @@ def distance(x, y, Ax, Ay, Bx, By):
     return dis
 
 
-def PLR(arr,start,end,thd):
-    i = start
-    j = start
-    k = end
-    temp_left = arr[start]
-    temp_right = arr[end]
 
-    while arr[:,0][i] < end:
-        max = 0
-        temp_max = arr[:,0][start]
-        d = distance(arr[:,0][i], arr[:,2][i], arr[:,0][start], arr[:,2][start], arr[:,0][end], arr[:,2][end])
-        if d > max:
-            max = d
-            temp_max = arr[:,0][i]
-        i = i+1
-
-    while arr[:,0][j] <= temp_max:
-        temp_left = np.vstack((temp_left, arr[j]))
-        j = j+1
-
-    while arr[:,0][k] > temp_max:
-        tem_right = np.vstack((arr[k], temp_right))
-        k = k-1
-
-    if max >= thd:
-        PLR(temp_left, start, temp_max, thd)
-        PLR(temp_right, temp_max, end, thd)
-    else:
-        return temp_max

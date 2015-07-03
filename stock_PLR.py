@@ -9,11 +9,48 @@ Copyright (c) 2015 zhzHNN. All rights reserved.
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import stock_function as sf
+import numpy as np
+
+def PLR(arr,start,end,thd):
+    i = start+1
+    j = start+1
+    k = end-1
+    temp_left = arr[start]
+    temp_right = arr[end]
+    max = 0
+    temp_max = arr[:,0][start]
+    global global_PLR
+    
+    while arr[:,0][i] < end:
+        d = sf.distance(arr[:,0][i], arr[:,2][i], arr[:,0][start], arr[:,2][start], arr[:,0][end], arr[:,2][end])
+        if d > max:
+            max = d
+            temp_max = arr[:,0][i]
+        i = i+1
+
+    global_PLR = np.vstack((global_PLR,arr[temp_max]))
+
+    while arr[:,0][j] < temp_max:
+        temp_left = np.vstack((temp_left, arr[j]))
+        j = j+1
+
+    while arr[:,0][k] > temp_max:
+        tem_right = np.vstack((arr[k], temp_right))
+        k = k-1
+
+    if max >= thd:
+        PLR(temp_left, start, temp_max, thd)
+        PLR(temp_right, temp_max, end, thd)
+    else:
+        return 
 
 stock_code = raw_input("Please input your stockcode:")
 xdata, ndata, stock_data = sf.handle_data(stock_code)
-#print stock_data[ndata[1],0][0]
-print sf.PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 10)
+
+global_PLR = np.vstack((stock_data[ndata[1]][-1], stock_data[ndata[1]][0]))
+
+PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 3)
+print global_PLR
 """plt.rc('axes', grid=True)
 plt.rc('grid', color='0.75', linestyle='-', linewidth=0.5)
 textsize = 9
