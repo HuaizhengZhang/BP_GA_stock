@@ -20,7 +20,7 @@ def PLR(arr,start,end,thd):
     max = 0
     temp_max = arr[:,0][start]
     global global_PLR
-    
+
     while arr[:,0][i] < end:
         d = sf.distance(arr[:,0][i], arr[:,2][i], arr[:,0][start], arr[:,2][start], arr[:,0][end], arr[:,2][end])
         if d > max:
@@ -42,15 +42,17 @@ def PLR(arr,start,end,thd):
         PLR(temp_left, start, temp_max, thd)
         PLR(temp_right, temp_max, end, thd)
     else:
-        return 
+        return
 
 stock_code = raw_input("Please input your stockcode:")
 xdata, ndata, stock_data = sf.handle_data(stock_code)
+
 
 global_PLR = np.vstack((stock_data[ndata[1]][-1], stock_data[ndata[1]][0]))
 
 PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 3)
 print global_PLR
+
 """plt.rc('axes', grid=True)
 plt.rc('grid', color='0.75', linestyle='-', linewidth=0.5)
 textsize = 9
