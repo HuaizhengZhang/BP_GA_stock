@@ -12,7 +12,45 @@ import stock_function as sf
 import numpy as np
 
 
+def PLR(arr,start,end,thd):
+    i = 1
+    j = 1
+    k = end-1
+    temp_left = arr[0]
+    temp_right = arr[end]
+    max = 0
+    temp_max = np.array([])
 
+    global global_PLR
+
+    while arr[:,0][i] < end:
+        d = sf.distance(arr[:,0][i], arr[:,2][i], arr[:,0][0], arr[:,2][0], arr[:,0][end], arr[:,2][end])
+        if d > max:
+            max = d
+            temp_max = arr[i]
+        i = i+1
+    if max >= thd:
+        global_PLR = np.vstack((global_PLR,temp_max))
+        while arr[:,0][j] <= temp_max[0]:
+            temp_left = np.vstack((temp_left, arr[j]))
+            j = j+1
+        while arr[:,0][k] >= temp_max[0]:
+            temp_right = np.vstack((arr[k], temp_right))
+            k = k-1
+
+        if (temp_max[0]-arr[:,0][0]) < 3:
+            return
+        else:
+            left = temp_left
+            PLR(left, start, temp_max[0]-arr[:,0][0], thd)
+
+        if (arr[:,0][end] - temp_max[0]) < 3:
+            return
+        else:
+            right = temp_right
+            PLR(right, start, arr[:,0][end]-temp_max[0], thd)
+    else:
+        return
 
 stock_code = raw_input("Please input your stockcode:")
 xdata, ndata, stock_data = sf.handle_data(stock_code)
