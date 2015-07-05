@@ -11,18 +11,80 @@ import matplotlib.font_manager as font_manager
 import stock_function as sf
 import numpy as np
 
+def PLR(start, end):
+    global stock_data
+    global global_PLR
+    global thd
+    i = start+1
+    max = 0
+    temp_max = []
+
+    while stock_data[:,0][i] < end:
+        d = sf.distance(stock_data[:,0][i],
+                        stock_data[:,2][i],
+                        stock_data[:,0][start],
+                        stock_data[:,2][start],
+                        stock_data[:,0][end],
+                        stock_data[:,2][end])
+        if d >= max:
+            max = d
+            temp_max = stock_data[:,0][i]
+        i = i+1
+
+    if max >= thd:
+        global_PLR.append(temp_max)
+        print temp_max
+        return
+    else:
+        return
+
+def PLR_sort():
+    global global_PLR
+    temp_sort = global_PLR[:]
+    temp_sort.sort()
+    print global_PLR
+    print temp_sort
+    j = 0
+
+    while j < len(temp_sort)-1:
+        if (temp_sort[j+1] - temp_sort[j]) > 2:
+            PLR(temp_sort[j], temp_sort[j+1])
+        j = j+1
+
+    return
+
+def PLR_main():
+    compare_global_PLR = []
+    global global_PLR
+
+    print compare_global_PLR
+
+    while len(compare_global_PLR) != len(global_PLR):
+        compare_global_PLR = global_PLR[:]
+        PLR_sort()
+
+    return
 
 
 
 stock_code = raw_input("Please input your stockcode:")
 xdata, ndata, stock_data = sf.handle_data(stock_code)
 
-global_PLR = np.vstack((stock_data[ndata[1]][-1], stock_data[ndata[1]][0]))
-PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 0.001)
+global_PLR = [stock_data[:,0][0], stock_data[:,0][-1]]
 
-p = np.array(sorted(global_PLR,key = lambda global_PLR: global_PLR[0]))
+thd = 0.01
 
-print p
+PLR_main()
+
+
+p = sorted(global_PLR)
+stock_data2 = stock_data[ndata[1]][-1]
+for i in np.arange(len(p)):
+    print p[i]
+    stock_data2 = np.vstack((stock_data2,stock_data[p[i]]))
+print stock_data2[1:]
+print stock_data2[:,0][2]
+
 
 
 plt.rc('axes', grid=True)
@@ -39,7 +101,7 @@ ax1.set_xticklabels(xdata[::20], rotation=45, horizontalalignment='right')
 ax1.set_xticks(stock_data[ndata[1],0][::-20])
 ax1.plot(stock_data[ndata[1],0][::-1], stock_data[ndata[1],6], lw=1, color="g", label='average_price')
 ax1.plot(stock_data[ndata[1],0][::-1], stock_data[ndata[1],2][::-1], lw=2.0, color="r", label='close_price')
-ax1.plot(p[:,0][::-1], p[:,2][::-1],lw=2.0, color="b",label='PLR')
+ax1.plot(stock_data2[:,0][::-1], stock_data2[:,2][::-1],lw=1.0, color="b",label='PLR')
 
 props = font_manager.FontProperties(size=10)
 leg = ax1.legend(loc='best', shadow=True, fancybox=True, prop=props)

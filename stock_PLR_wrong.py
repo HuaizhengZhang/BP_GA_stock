@@ -60,7 +60,12 @@ PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 0.001)
 
 p = np.array(sorted(global_PLR,key = lambda global_PLR: global_PLR[0]))
 
-print p
+stock_data2 = stock_data[ndata[1]][-1]
+for i in np.arange(len(p)):
+    print p[:,0][i]
+    stock_data2 = np.vstack((stock_data2,stock_data[p[:,0][i]]))
+print stock_data2[1:]
+
 
 
 plt.rc('axes', grid=True)
