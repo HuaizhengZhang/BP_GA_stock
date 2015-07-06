@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-s
 """
-stock_PLR.py
-Created by Huaizheng ZHANG on 7.1.
+stock_PLR_plot.py
+Created by Huaizheng ZHANG on 7.6.
 Copyright (c) 2015 zhzHNN. All rights reserved.
 
 """
@@ -52,37 +52,30 @@ def PLR_sort(thd):
 
     return
 
-def PLR_main(thd = 0.1):
+def PLR_main(thd = 0.25):
     compare_global_PLR = []
     global global_PLR
-    global stock_data
-    global ndata
+
     print compare_global_PLR
 
     while len(compare_global_PLR) != len(global_PLR):
         compare_global_PLR = global_PLR[:]
         PLR_sort(thd)
 
-    p = sorted(global_PLR)
-    temp_data = stock_data[ndata[1]][-1]
-    for i in np.arange(len(p)):
-        temp_data = np.vstack((temp_data,stock_data[p[i]]))
-    print temp_data
+    return
 
-    profit = 1
+def profit():
+    pf = 1
     m = 0
-    while m < len(temp_data)-1:
-        if temp_data[:,2][m] < temp_data[:,2][m+1]:
-            profit = profit * (1 + (temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m])
+    global stock_data2
+    while m < len(stock_data2)-1:
+        if stock_data2[:,2][m] < stock_data2[:,2][m+1]:
+            pf = pf * (1 + (stock_data2[:,2][m+1] - stock_data2[:,2][m] * (1+0.001))/stock_data2[:,2][m])
             m = m+1
         else:
             m = m+1
-    print profit
-    return profit,temp_data
-
-
-
-
+    print pf
+    return pf
 
 
 #input stock_code
@@ -92,11 +85,22 @@ xdata, ndata, stock_data = sf.handle_data(stock_code)
 #init data
 global_PLR = [stock_data[:,0][0], stock_data[:,0][-1]]
 
+#threshold
 
-p = PLR_main()
 
-print p
-"""plt.rc('axes', grid=True)
+#get important point
+PLR_main()
+p = sorted(global_PLR)
+stock_data2 = stock_data[ndata[1]][-1]
+for i in np.arange(len(p)):
+    stock_data2 = np.vstack((stock_data2,stock_data[p[i]]))
+print stock_data2
+
+#calculate profit, notice the fee
+profit()
+
+
+plt.rc('axes', grid=True)
 plt.rc('grid', color='0.75', linestyle='-', linewidth=0.5)
 textsize = 9
 left, width = 0.1, 0.8
@@ -118,4 +122,3 @@ leg.get_frame().set_alpha(0.5)
 
 plt.title("%sPLR"%stock_code)
 plt.show()
-"""

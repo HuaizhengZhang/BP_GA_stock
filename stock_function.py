@@ -27,6 +27,3 @@ def handle_data(filename):
 def distance(x, y, Ax, Ay, Bx, By):
     dis = (math.fabs((By-Ay)*x + (Ax-Bx)*y + ((Bx*Ay)-(Ax*By)))) / math.hypot((By-Ay),(Ax-Bx))
     return dis
-
-
-

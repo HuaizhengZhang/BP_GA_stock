@@ -56,7 +56,7 @@ stock_code = raw_input("Please input your stockcode:")
 xdata, ndata, stock_data = sf.handle_data(stock_code)
 
 global_PLR = np.vstack((stock_data[ndata[1]][-1], stock_data[ndata[1]][0]))
-PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 0.001)
+PLR(stock_data, stock_data[ndata[1],0][-1], stock_data[ndata[1],0][0], 0.01)
 
 p = np.array(sorted(global_PLR,key = lambda global_PLR: global_PLR[0]))
 
