@@ -52,7 +52,7 @@ def PLR_sort(thd):
 
     return
 
-def PLR_main(thd = 0.25):
+def PLR_main(thd = 5):
     compare_global_PLR = []
     global global_PLR
 

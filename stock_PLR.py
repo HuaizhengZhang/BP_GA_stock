@@ -32,7 +32,6 @@ def PLR(start, end, thd):
 
     if max >= thd:
         global_PLR.append(temp_max)
-        print temp_max
         return
     else:
         return
@@ -41,7 +40,6 @@ def PLR_sort(thd):
     global global_PLR
     temp_sort = global_PLR[:]
     temp_sort.sort()
-    print global_PLR
     print temp_sort
     j = 0
 
@@ -52,12 +50,11 @@ def PLR_sort(thd):
 
     return
 
-def PLR_main(thd = 0.1):
+def PLR_main(thd):
     compare_global_PLR = []
     global global_PLR
     global stock_data
     global ndata
-    print compare_global_PLR
 
     while len(compare_global_PLR) != len(global_PLR):
         compare_global_PLR = global_PLR[:]
@@ -67,7 +64,6 @@ def PLR_main(thd = 0.1):
     temp_data = stock_data[ndata[1]][-1]
     for i in np.arange(len(p)):
         temp_data = np.vstack((temp_data,stock_data[p[i]]))
-    print temp_data
 
     profit = 1
     m = 0
@@ -78,6 +74,7 @@ def PLR_main(thd = 0.1):
         else:
             m = m+1
     print profit
+    
     return profit,temp_data
 
 
@@ -93,9 +90,9 @@ xdata, ndata, stock_data = sf.handle_data(stock_code)
 global_PLR = [stock_data[:,0][0], stock_data[:,0][-1]]
 
 
-p = PLR_main()
+"""p = PLR_main()
 
-print p
+print p"""
 """plt.rc('axes', grid=True)
 plt.rc('grid', color='0.75', linestyle='-', linewidth=0.5)
 textsize = 9
