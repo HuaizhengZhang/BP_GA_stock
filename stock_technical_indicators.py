@@ -12,3 +12,6 @@ class technical_indicators:
     def __init__(self, arg):
         super(technical_indicators, self).__init__()
         self.arg = arg
+
+    def MA(self, days):
+        
