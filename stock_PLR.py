@@ -69,12 +69,12 @@ def PLR_main(thd):
     m = 0
     while m < len(temp_data)-1:
         if temp_data[:,2][m] < temp_data[:,2][m+1]:
-            profit = profit * (1 + (temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m])
+            profit = profit * (1 + ((temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m]))
             m = m+1
         else:
             m = m+1
     print profit
-    
+
     return profit,temp_data
 
 
