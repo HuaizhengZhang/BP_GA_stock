@@ -13,7 +13,7 @@ import stock_GA as sG
 if __name__ == '__main__':
     # 种群的个体数量为 50，染色体长度为 25，交叉概率为 0.9，变异概率为 0.5,进化最大世代数为 50
     pop = sG.GA (50, 25, 0.9, 0.4, 200)
-    stock_data2 = pop.run ()
+    stock_data2, xdata, ndata, stock_data, stock_code = pop.run ()
 
 
 plt.rc('axes', grid=True)

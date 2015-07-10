@@ -17,7 +17,10 @@ class GA:
         self.selector_probability = [] # 个体选择概率
         self.new_individuals = []      # 新一代个体
         self.gen_stock =[]             # 最终序列
-
+        self.ndata = []
+        self.xdata = []
+        self.stock_data = []
+        self.stock_code = []
         self.elitist = {'chromosome':[0, 0], 'fitness':0, 'age':0} # 最佳个体的信息
 
         self.size = size # 种群所包含的个体数
@@ -44,7 +47,7 @@ class GA:
     def fitness_func (self, chrom):
         interval = [0, 5]
         thd = self.decode(interval,chrom)
-        p, self.gen_stock = sP.PLR_main(thd)
+        p, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code= sP.PLR_main(thd)
         return p
 
 
@@ -162,4 +165,4 @@ class GA:
             self.evolve ()
             print i, max (self.fitness), sum (self.fitness)/self.size, min (self.fitness)
         print self.gen_stock
-        return self.gen_stock
+        return self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code

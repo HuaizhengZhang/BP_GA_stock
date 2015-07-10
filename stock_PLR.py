@@ -55,7 +55,7 @@ def PLR_main(thd):
     global stock_data
     global ndata
     global xdata
-
+    global stock_code
     while len(compare_global_PLR) != len(global_PLR):
         compare_global_PLR = global_PLR[:]
         PLR_sort(thd)
@@ -69,14 +69,14 @@ def PLR_main(thd):
     m = 0
     while m < len(temp_data)-1:
         if temp_data[:,2][m] < temp_data[:,2][m+1]:
-            profit = profit * (1 + ((temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m]))
+            profit = profit * (1 + (((1-0.001)*temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m]))
             m = m+1
         else:
             m = m+1
     temp_data = np.delete(temp_data, 0, 0)
 
     print profit
-    return profit,temp_data
+    return profit, temp_data, xdata, ndata, stock_data, stock_code
 
 
 
