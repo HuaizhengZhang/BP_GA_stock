@@ -47,8 +47,9 @@ class GA:
     def fitness_func (self, chrom):
         interval = [0, 5]
         thd = self.decode(interval,chrom)
-        p, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code= sP.PLR_main(thd)
-        return p
+        p, segment, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code= sP.PLR_main(thd)
+        #print p*0.4+(0.6/(segment^2))
+        return p*0.4+(0.6/(segment^2))
 
 
     def evaluate (self):
