@@ -69,14 +69,17 @@ def PLR_main(thd):
     m = 0
     while m < len(temp_data)-1:
         if temp_data[:,2][m] < temp_data[:,2][m+1]:
-            profit = profit * (1 + (((1-0.001)*temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m]))
+            #profit = profit * (1 + (((1-0.001)*temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m]))
+            profit = profit * (1 + (temp_data[:,2][m+1] - temp_data[:,2][m])/temp_data[:,2][m]) * 0.999
             m = m+1
         else:
             m = m+1
+
+    retu = profit - 1
     temp_data = np.delete(temp_data, 0, 0)
     segment = len(temp_data)-1
     print segment
-    return profit, segment, temp_data, xdata, ndata, stock_data, stock_code
+    return retu, segment, temp_data, xdata, ndata, stock_data, stock_code
 
 
 
