@@ -48,8 +48,12 @@ class GA:
         interval = [0, 5]
         thd = self.decode(interval,chrom)
         p, segment, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code= sP.PLR_main(thd)
-        #print p*0.4+(0.6/(segment^2))
-        return p*0.4+(0.6/(segment^2))
+
+        print p*0.8 + 0.2*thd
+        print thd
+        print p
+        print segment
+        return p*0.8 + 0.2*thd
 
 
     def evaluate (self):

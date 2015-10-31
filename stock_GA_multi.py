@@ -40,20 +40,21 @@ class GA:
             self.fitness.append (0)
             self.selector_probability.append (0)
 
-# 接上面的代码
+
     def decode (self, interval, chromosome):
         d = interval[1] - interval[0]
         n = float (2 ** self.chromosome_size -1)
         return (interval[0] + chromosome * d / n)
 
     def fitness_func (self, chrom1, chrom2):
-        interval_thd = [0, 5]
-        interval_segment = [1,200]
-        thd = self.decode (interval_thd, chrom1)
-        segment = self.decode (interval_segment, chrom2)
-        p, real_segment, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code= sP.PLR_main(thd)
-        print p*0.4+(0.6/(segment**2))
-        return p*0.4+(0.6/(segment**2))
+        interval = [0, 5]
+        (x, y) = (self.decode (interval, chrom1),
+                  self.decode (interval, chrom2))
+        thd = (x + y) / 2
+        p, real_segment, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code = sP.PLR_main(thd)
+        print p*0.3 + 0.7*thd
+        print p
+        return p*0.3 + 0.7*thd
 
     def evaluate (self):
         sp = self.selector_probability

@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import stock_function as sf
 import numpy as np
+import math as math
 
 def PLR(start, end, thd):
     global stock_data
@@ -67,10 +68,10 @@ def PLR_main(thd):
 
     profit = 1
     m = 0
-    while m < len(temp_data)-1:
-        if temp_data[:,2][m] < temp_data[:,2][m+1]:
+    while m < len(temp_data)-2:
+        if (temp_data[:,2][m+1]*0.999 - temp_data[:,2][m]*1.001) > 0:
             #profit = profit * (1 + (((1-0.001)*temp_data[:,2][m+1] - temp_data[:,2][m] * (1+0.001))/temp_data[:,2][m]))
-            profit = profit * (1 + (temp_data[:,2][m+1] - temp_data[:,2][m])/temp_data[:,2][m]) * 0.999
+            profit = profit * (1 + (temp_data[:,2][m+1]*0.999 - temp_data[:,2][m]*1.001)/(temp_data[:,2][m]*1.001))
             m = m+1
         else:
             m = m+1
@@ -78,7 +79,7 @@ def PLR_main(thd):
     retu = profit - 1
     temp_data = np.delete(temp_data, 0, 0)
     segment = len(temp_data)-1
-    print segment
+
     return retu, segment, temp_data, xdata, ndata, stock_data, stock_code
 
 
