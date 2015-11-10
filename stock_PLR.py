@@ -79,7 +79,7 @@ def PLR_main(thd):
     retu = profit - 1
     temp_data = np.delete(temp_data, 0, 0)
     segment = len(temp_data)-1
-
+    
     return retu, segment, temp_data, xdata, ndata, stock_data, stock_code
 
 

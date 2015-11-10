@@ -52,9 +52,16 @@ class GA:
                   self.decode (interval, chrom2))
         thd = (x + y) / 2
         p, real_segment, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code = sP.PLR_main(thd)
-        print p*0.3 + 0.7*thd
+
+        #print p*0.7 + 0.3*thd
         print p
-        return p*0.3 + 0.7*thd
+        print real_segment
+        print thd
+        return p
+        #return p*0.7 + 0.3*thd
+
+
+
 
     def evaluate (self):
         sp = self.selector_probability
@@ -171,5 +178,5 @@ class GA:
         for i in range (self.generation_max):
             self.evolve ()
             print i, max (self.fitness), sum (self.fitness)/self.size, min (self.fitness)
-        print self.gen_stock
+        #print self.gen_stock
         return self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code

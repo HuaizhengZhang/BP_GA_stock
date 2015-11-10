@@ -52,7 +52,7 @@ def PLR_sort(thd):
 
     return
 
-def PLR_main(thd = 0.4):
+def PLR_main(thd = 2.0):
     compare_global_PLR = []
     global global_PLR
 
@@ -75,6 +75,7 @@ def profit():
         else:
             m = m+1
     print pf
+
     return pf
 
 
@@ -120,5 +121,5 @@ props = font_manager.FontProperties(size=10)
 leg = ax1.legend(loc='best', shadow=True, fancybox=True, prop=props)
 leg.get_frame().set_alpha(0.5)
 
-plt.title("%sPLR"%stock_code)
+plt.title("%sPLR e=2.0"%stock_code)
 plt.show()
