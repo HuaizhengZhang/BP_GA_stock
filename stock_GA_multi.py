@@ -53,12 +53,12 @@ class GA:
         thd = (x + y) / 2
         p, real_segment, self.gen_stock, self.xdata, self.ndata, self.stock_data, self.stock_code = sP.PLR_main(thd)
 
-        #print p*0.7 + 0.3*thd
-        print p
+        print p*0.7 + 0.3*thd
+        #print p
         print real_segment
         print thd
-        return p
-        #return p*0.7 + 0.3*thd
+        #return p
+        return p*0.7 + 0.3*thd
 
 
 
