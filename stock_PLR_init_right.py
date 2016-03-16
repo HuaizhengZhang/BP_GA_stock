@@ -52,7 +52,7 @@ def PLR_sort(thd):
 
     return
 
-def PLR_main(thd = 2.0):
+def PLR_main(thd = 1.0):
     compare_global_PLR = []
     global global_PLR
 
@@ -92,10 +92,11 @@ global_PLR = [stock_data[:,0][0], stock_data[:,0][-1]]
 #get important point
 PLR_main()
 p = sorted(global_PLR)
+print p
 stock_data2 = stock_data[ndata[1]][-1]
 for i in np.arange(len(p)):
     stock_data2 = np.vstack((stock_data2,stock_data[p[i]]))
-print stock_data2
+
 
 #calculate profit, notice the fee
 profit()
